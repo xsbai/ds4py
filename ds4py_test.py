@@ -2,9 +2,9 @@
 """
 基础数据结构测试类
 """
-from ds4py import SingleLinkedList,SingleCircleLinkedList,DoubleLinkedList,DoubleCircleLinkedList
-from ds4py import BTree
-from ds4py import Stack
+from linklist import SingleLinkedList,SingleCircleLinkedList,DoubleLinkedList,DoubleCircleLinkedList
+from tree import BTree
+from stack import Stack
 class test_stack:
     def test_stack(self):
         s=Stack(10)
@@ -186,21 +186,21 @@ class test_btree:
         print('\n树的高度: %s.' % height)
 
         # 利用Graphviz进行二叉树的可视化
-        # tree.print_tree(save_path='E://create_btree_by_list.gv', label=True)
+        # tree.print_tree(save_path='./create_btree_by_list.gv', label=True)
 
 if __name__ == '__main__':
     # 堆栈测试
     stack = test_stack()
-    stack.test_stack()
+    # stack.test_stack()
 
     # 链表测试
     link = test_link()
-    # link.test_DCL()
+    #link.test_DCL()
 
     # 二叉树测试
     tree_object = test_btree()
     # tree = tree_object.test_create_tree_by_list()
-    # tree = tree_object.create_tree()
-    # tree_object.test_tree(tree)
+    tree = tree_object.create_tree()
+    tree_object.test_tree(tree)
 
     
