@@ -2,10 +2,13 @@
 """
 基础数据结构测试类
 """
-from linklist import SingleLinkedList,SingleCircleLinkedList,DoubleLinkedList,DoubleCircleLinkedList
-from tree import BTree
-from stack import Stack
-class test_stack:
+from ds.linklist import SingleLinkedList,SingleCircleLinkedList,DoubleLinkedList,DoubleCircleLinkedList
+from ds.tree import BTree
+from ds.stack import Stack
+from algo.sort import Sort
+from algo.search import Search
+
+class StackTest:
     def test_stack(self):
         s=Stack(10)
         for i in range(6):
@@ -15,7 +18,8 @@ class test_stack:
             s.pop()
         s.showStack()
 
-class test_link:
+
+class LinkTest:
     def __init__(self):
         pass
     
@@ -86,7 +90,7 @@ class test_link:
         print('双向循环链表为：', DCL.travel())
 
 
-class test_btree:
+class BTreeTest:
     def __init__(self):
         pass
 
@@ -188,19 +192,50 @@ class test_btree:
         # 利用Graphviz进行二叉树的可视化
         # tree.print_tree(save_path='./create_btree_by_list.gv', label=True)
 
+
+class SortTest:
+
+    def test_sort(self):
+        a = [34, 1, 4, 3, 6, 8, 89, 23, 12]
+        n = len(a)
+        sort = Sort()
+        print(sort.straight_insertion_sort(a))
+        print(sort.binary_insertion_sort(a))
+        print(sort.shell_sort(a))
+        print(sort.bubble_sort(a))
+        print(sort.straight_select_sort(a))
+        print(sort.quick_sort(a, 0, n-1))
+
+
+class SearchTest:
+    def test_search(self):
+        search = Search()
+        a=[1,3,5,7,23,53,64,81,12]
+        num = 64
+        print(search.binary_chop(a,num))
+
+
 if __name__ == '__main__':
     # 堆栈测试
-    stack = test_stack()
+    stack = StackTest()
     # stack.test_stack()
 
     # 链表测试
-    link = test_link()
+    link = LinkTest()
     #link.test_DCL()
 
     # 二叉树测试
-    tree_object = test_btree()
+    tree_object = BTreeTest()
     # tree = tree_object.test_create_tree_by_list()
     tree = tree_object.create_tree()
-    tree_object.test_tree(tree)
+    #tree_object.test_tree(tree)
+
+    # 排序测试
+    sort_object = SortTest()
+    # sort_object.test_sort()
+
+    # 查找测试
+    search_object = SearchTest()
+    search_object.test_search()
 
     
