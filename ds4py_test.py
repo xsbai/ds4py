@@ -2,15 +2,17 @@
 """
 基础数据结构测试类
 """
-from ds.linklist import SingleLinkedList,SingleCircleLinkedList,DoubleLinkedList,DoubleCircleLinkedList
+from ds.linklist import SingleLinkedList, SingleCircleLinkedList, DoubleLinkedList, DoubleCircleLinkedList
 from ds.tree import BTree
 from ds.stack import Stack
+from ds.queue import Queue,CircleQueue
 from algo.sort import Sort
 from algo.search import Search
 
+
 class StackTest:
     def test_stack(self):
-        s=Stack(10)
+        s = Stack(10)
         for i in range(6):
             s.push(i)
         s.showStack()
@@ -19,10 +21,36 @@ class StackTest:
         s.showStack()
 
 
+class QueueTest:
+    def test_queue(self):
+        queue = Queue(5)
+        print(queue.isEmpty())
+        for i in range(5):
+            queue.enqueue(i)
+        print(queue.size)
+        queue.print()
+        queue.dequeue()
+        queue.print()
+        queue.clear()
+
+
+    def test_circle_queue(self):
+        queue = CircleQueue(5)  # 定义一个大小为5的队列
+        for i in range(8):
+            # 先判断队列是否为满
+            if not queue.isFull():
+                queue.enqueue(i)
+            else:
+                # 先出队再添加
+                queue.dequeue()
+                queue.enqueue(i)
+            print(queue)
+
+
 class LinkTest:
     def __init__(self):
         pass
-    
+
     # 单链表测试
     def test_SL(self):
         SL = SingleLinkedList()
@@ -37,7 +65,7 @@ class LinkTest:
         print('单链表长度：', SL.length())
         SL.remove(2)
         print('单链表为：', SL.travel())
-    
+
     # 单循环链表测试
     def test_SCL(self):
         SCL = SingleCircleLinkedList()
@@ -95,7 +123,7 @@ class BTreeTest:
         pass
 
     # 手动构造二叉树, BOTTOM-UP METHOD
-    def create_tree(self): 
+    def create_tree(self):
         right_tree = BTree(6)
         right_tree.left = BTree(2)
         right_tree.right = BTree(4)
@@ -112,7 +140,7 @@ class BTreeTest:
         left_tree.left = BTree(3)
         left_tree.right = BTree(4)
 
-        right_tree = tree # 增加新的变量
+        right_tree = tree  # 增加新的变量
         tree = BTree(18)
         tree.left = left_tree
         tree.right = right_tree
@@ -121,7 +149,7 @@ class BTreeTest:
 
     # 利用列表构造二叉树
     # 列表中至少有一个元素
-    def create_tree_by_list(self,array):
+    def create_tree_by_list(self, array):
 
         i = 1
         # 将原数组拆成层次遍历的数组，每一项都储存这一层所有的节点的数据
@@ -154,22 +182,23 @@ class BTreeTest:
         # 如果只有一个节点
         if len(level_order) == 1:
             return BTree(level_order[0][0])
-        else: # 二叉树的层数大于1
+        else:  # 二叉树的层数大于1
             # 创建最后一层的节点列表
             BTree_list = [BTree(elem) for elem in level_order[-1]]
 
             # 从下往上，逐层创建二叉树
             for i in range(len(level_order)-2, -1, -1):
-                BTree_list = Create_BTree_One_Step_Up(BTree_list, level_order[i])
+                BTree_list = Create_BTree_One_Step_Up(
+                    BTree_list, level_order[i])
 
             return BTree_list[0]
-    
+
     def test_create_tree_by_list(self):
         array = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         tree = self.create_tree_by_list(array)
         return tree
 
-    def test_tree(self,tree):
+    def test_tree(self, tree):
         print('先序遍历为:')
         tree.preorder()
 
@@ -210,9 +239,9 @@ class SortTest:
 class SearchTest:
     def test_search(self):
         search = Search()
-        a=[1,3,5,7,23,53,64,81,12]
+        a = [1, 3, 5, 7, 23, 53, 64, 81, 12]
         num = 64
-        print(search.binary_chop(a,num))
+        print(search.binary_chop(a, num))
 
 
 if __name__ == '__main__':
@@ -220,15 +249,21 @@ if __name__ == '__main__':
     stack = StackTest()
     # stack.test_stack()
 
+
+    # 队列测试
+    queue = QueueTest()
+    # queue.test_queue()
+    queue.test_circle_queue()
+
     # 链表测试
     link = LinkTest()
-    #link.test_DCL()
+    # link.test_DCL()
 
     # 二叉树测试
     tree_object = BTreeTest()
     # tree = tree_object.test_create_tree_by_list()
     tree = tree_object.create_tree()
-    #tree_object.test_tree(tree)
+    # tree_object.test_tree(tree)
 
     # 排序测试
     sort_object = SortTest()
@@ -236,6 +271,4 @@ if __name__ == '__main__':
 
     # 查找测试
     search_object = SearchTest()
-    search_object.test_search()
-
-    
+    #search_object.test_search()

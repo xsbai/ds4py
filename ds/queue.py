@@ -22,22 +22,28 @@ class Queue(object):
     def dequeue(self):
         self.queue.pop(0)
 
+    def isFull(self):
+        # 判断队列是否满
+        if len(self.queue) == self.size:
+            return True
+        return False
+        
     #判断队列是否为空
     def isEmpty(self):
-        return(self.queue == [])
+        return self.queue == []
 
     #清空队列
     def clear(self):
-        del(self.queue) #该队列就不存在了，而不是清空元素
+        del self.queue #该队列就不存在了，而不是清空元素
 
     
     #返回队列项的数量
     def size(self):
-        return(len(self.items))
+        return len(self.items)
 
     #打印队列
     def print(self):
-        print(self.items)
+        print(self.queue)
 
 
 
